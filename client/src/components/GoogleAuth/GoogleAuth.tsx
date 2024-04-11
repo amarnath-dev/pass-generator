@@ -1,11 +1,14 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../../services/userServices";
 
 export const GoogleAuth = () => {
   const navigate = useNavigate();
-  const handleSuccess = (response: CredentialResponse) => {
-    if (response.credential) {
-      console.log(response.credential);
+  const handleSuccess = (data: CredentialResponse) => {
+    if (data.credential) {
+      console.log(data.credential);
+      const response = signIn(data.credential);
+      console.log(response);
       navigate("/");
     }
   };
