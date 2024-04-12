@@ -1,10 +1,11 @@
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaCopy } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SaveModal from "../SaveModal/SaveModal";
 
 interface ResultModalProps {
   modalOpen: boolean;
@@ -17,6 +18,8 @@ export const ResultModal: React.FC<ResultModalProps> = ({
   setModalOpen,
   password,
 }) => {
+  const [saveModal, setSaveModal] = useState<boolean>(false);
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -26,8 +29,9 @@ export const ResultModal: React.FC<ResultModalProps> = ({
   };
 
   const handleSave = () => {
-    
-  }
+    setModalOpen(false);
+    setSaveModal(true);
+  };
 
   return (
     <>
@@ -43,6 +47,7 @@ export const ResultModal: React.FC<ResultModalProps> = ({
         pauseOnHover
         theme="light"
       />
+      <SaveModal open={saveModal} setOpen={setSaveModal} password={password} />
       <div>
         <Modal open={modalOpen} onClose={closeModal}>
           <div>

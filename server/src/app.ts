@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import useRoutes from "../src/routes/userRoutes";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const corsConfig = {
@@ -12,6 +13,7 @@ dotenv.config();
 
 app.use(cors(corsConfig));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/", useRoutes);
 
