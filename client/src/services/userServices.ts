@@ -41,3 +41,12 @@ export const savePassword = async (password: string, description: string) => {
     console.log(error);
   }
 };
+
+export const deletePass = async (id: string) => {
+  try {
+    const res = await API.delete(`/delete/${id}`);
+    return res.data.status;
+  } catch (error) {
+    console.log(error);
+  }
+};

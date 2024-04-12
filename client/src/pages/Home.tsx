@@ -1,8 +1,10 @@
 import { useState } from "react";
 import InputModal from "../components/InputModal/InputModal";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
   return (
     <>
       <InputModal open={open} setOpen={setOpen} />
@@ -66,6 +68,12 @@ const Home = () => {
             onClick={() => setOpen(true)}
           >
             Create Own Password 🚀
+          </button>
+          <button
+            className="bg-teal-700 px-3 py-2 rounded-md font-bold  hover:bg-teal-600 ml-3"
+            onClick={() => navigate("/passwords")}
+          >
+            My Passwords 🗝️
           </button>
         </div>
       </div>

@@ -11,4 +11,8 @@ router.post("/generate", verifyUser, passwordControl.generateOwnPass);
 
 router.post("/save", verifyUser, passwordControl.savePassword);
 
+router.get("/passwords", verifyUser, passwordControl.getPasswords);
+
+router.delete("/delete/:id", verifyUser, passwordControl.deletePassword);
+
 export default router;

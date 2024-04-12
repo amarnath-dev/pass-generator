@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Password from "../models/passwordModel";
+import { ObjectId } from "mongodb";
 
 async function generateOwnPass(req: Request, res: Response) {
   try {
@@ -69,4 +70,29 @@ async function savePassword(req: Request, res: Response) {
   }
 }
 
-export default { generateOwnPass, savePassword };
+async function getPasswords(req: Request, res: Response) {
+  try {
+    const user = req.user;
+    const passwords = await Password.find({
+      userID: new ObjectId(user?.userId),
+    });
+    res.status(200).json({ status: true, passwords });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: "false" });
+  }
+}
+
+async function deletePassword(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const deletePass = await Password.findByIdAndDelete(id);
+    console.log("Deleted", deletePass);
+    res.status(200).json({ status: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: false, message: "Password Delete Failed" });
+  }
+}
+
+export default { generateOwnPass, savePassword, getPasswords, deletePassword };
