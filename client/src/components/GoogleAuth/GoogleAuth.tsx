@@ -1,19 +1,21 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../../services/userServices";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 export const GoogleAuth = () => {
   const navigate = useNavigate();
-  const handleSuccess = (data: CredentialResponse) => {
+
+  const handleSuccess = async (data: CredentialResponse) => {
     if (data.credential) {
-      console.log(data.credential);
-      const response = signIn(data.credential);
-      console.log(response);
+      const response = await signIn(data.credential);
+      Cookies.set("token", response);
       navigate("/");
     }
   };
   const handleError = () => {
-    console.log("Error");
+    toast.error("Something wen wrong!");
   };
   return (
     <>
