@@ -8,6 +8,7 @@ interface InputModalProps {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
 }
+
 export interface Requirements {
   uppercase: string;
   lowercase: string;

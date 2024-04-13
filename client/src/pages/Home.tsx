@@ -1,12 +1,41 @@
 import { useState } from "react";
 import InputModal from "../components/InputModal/InputModal";
 import { useNavigate } from "react-router-dom";
+import { generateOwnPass } from "../services/userServices";
+import { ResultModal } from "../components/ResultModal/ResultModal";
+
+interface Requirements {
+  uppercase: string;
+  lowercase: string;
+  numbers: string;
+  specialCharacters: string;
+}
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
+
+  const handlePreset = async (requirements: Requirements) => {
+    try {
+      const result = await generateOwnPass(requirements);
+      if (result) {
+        setPassword(result);
+        setModalOpen(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
+      <ResultModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        password={password}
+      />
       <InputModal open={open} setOpen={setOpen} />
       <div className="w-screen h-screen bg-background text-one">
         <div className="py-10 w-full flex justify-center flex-col">
@@ -28,7 +57,17 @@ const Home = () => {
               <li>8 characters long</li>
             </div>
             <div className="py-4">
-              <button className="bg-teal-700 py-1 px-3 rounded-md font-bold hover:bg-teal-600">
+              <button
+                className="bg-teal-700 py-1 px-3 rounded-md font-bold hover:bg-teal-600"
+                onClick={() =>
+                  handlePreset({
+                    uppercase: "3",
+                    lowercase: "2",
+                    numbers: "2",
+                    specialCharacters: "1",
+                  })
+                }
+              >
                 Get this Password 🗝️
               </button>
             </div>
@@ -42,7 +81,17 @@ const Home = () => {
               <li>13 characters long</li>
             </div>
             <div className="py-4">
-              <button className="bg-teal-700 py-1 px-3 rounded-md font-bold hover:bg-teal-600">
+              <button
+                className="bg-teal-700 py-1 px-3 rounded-md font-bold hover:bg-teal-600"
+                onClick={() =>
+                  handlePreset({
+                    uppercase: "5",
+                    lowercase: "3",
+                    numbers: "3",
+                    specialCharacters: "2",
+                  })
+                }
+              >
                 Get this Password 🗝️
               </button>
             </div>
@@ -56,7 +105,17 @@ const Home = () => {
               <li>18 characters long</li>
             </div>
             <div className="py-4">
-              <button className="bg-teal-700 py-1 px-3 rounded-md font-bold hover:bg-teal-600">
+              <button
+                className="bg-teal-700 py-1 px-3 rounded-md font-bold hover:bg-teal-600"
+                onClick={() =>
+                  handlePreset({
+                    uppercase: "5",
+                    lowercase: "4",
+                    numbers: "4",
+                    specialCharacters: "5",
+                  })
+                }
+              >
                 Get this Password 🗝️
               </button>
             </div>
