@@ -19,12 +19,12 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // const token = req.cookies.token;
     // console.log("Token -> ", token);
-    const token = req.headers.authorization;
+    const token = req.headers.Authorization;
     if (!token) {
       res.status(401).json({ status: false, message: "User Unauthorized" });
     }
     if (token) {
-      const user: User = jwtDecode(token);
+      const user: User = jwtDecode(token as string);
       const exists = await User.findById(user.userId);
       if (!exists) {
         res
