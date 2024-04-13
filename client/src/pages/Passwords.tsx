@@ -26,7 +26,7 @@ const Passwords = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await API.get("/passwords");
+        const response = await API.get("/passwords", { withCredentials: true });
         if (response.data?.passwords) {
           console.log(response);
           const values = response.data.passwords;

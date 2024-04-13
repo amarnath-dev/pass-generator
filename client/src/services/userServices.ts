@@ -18,7 +18,9 @@ export const signIn = async (credential: string) => {
 
 export const generateOwnPass = async (requirements: Requirements) => {
   try {
-    const res = await API.post("/generate", requirements);
+    const res = await API.post("/generate", requirements, {
+      withCredentials: true,
+    });
     return res.data.password;
   } catch (error) {
     console.error("Requirement Send Failed", error);
@@ -44,7 +46,7 @@ export const savePassword = async (password: string, description: string) => {
 
 export const deletePass = async (id: string) => {
   try {
-    const res = await API.delete(`/delete/${id}`);
+    const res = await API.delete(`/delete/${id}`, { withCredentials: true });
     return res.data.status;
   } catch (error) {
     console.log(error);
