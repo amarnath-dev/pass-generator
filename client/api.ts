@@ -9,7 +9,7 @@ const url = axios.create({
   baseURL: URL,
   headers: {
     "Content-Type": "application/json",
-    Authorization: token,
+    Authorization: `Bearer ${token}`,
   },
   withCredentials: true,
 });
