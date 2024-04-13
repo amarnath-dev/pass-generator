@@ -17,9 +17,7 @@ declare global {
 
 const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // const token = req.cookies.token;
-    // console.log("Token -> ", token);
-    const token = req.headers.Authorization;
+    const token = `Bearer ${req.headers.Authorization}`;
     if (!token) {
       res.status(401).json({ status: false, message: "User Unauthorized" });
     }
