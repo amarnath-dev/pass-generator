@@ -2,12 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/database.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/database.ts",
     "build": "tsc",
-    "start": ""
+    "start": "node dist/database.js"
   },
   "author": "",
   "license": "ISC",
