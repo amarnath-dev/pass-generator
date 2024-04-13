@@ -86,8 +86,7 @@ async function getPasswords(req: Request, res: Response) {
 async function deletePassword(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const deletePass = await Password.findByIdAndDelete(id);
-    console.log("Deleted", deletePass);
+    await Password.findByIdAndDelete(id);
     res.status(200).json({ status: true });
   } catch (error) {
     console.log(error);

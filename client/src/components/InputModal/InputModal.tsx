@@ -28,7 +28,6 @@ const InputModal: React.FC<InputModalProps> = ({ open, setOpen }) => {
   const [password, setPassword] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
     setRequirements((prevRequirements) => ({
       ...prevRequirements,

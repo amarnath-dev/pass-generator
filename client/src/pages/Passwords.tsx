@@ -28,7 +28,6 @@ const Passwords = () => {
       try {
         const response = await API.get("/passwords", { withCredentials: true });
         if (response.data?.passwords) {
-          console.log(response);
           const values = response.data.passwords;
           setPassword(values);
         }

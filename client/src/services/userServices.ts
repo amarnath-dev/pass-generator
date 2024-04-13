@@ -37,7 +37,6 @@ export const savePassword = async (password: string, description: string) => {
       },
       { withCredentials: true }
     );
-    console.log("Response", res);
     return res.status;
   } catch (error) {
     console.log(error);

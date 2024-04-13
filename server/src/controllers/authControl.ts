@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { jwtDecode } from "jwt-decode";
 import User from "../models/userModel";
 import { IUser } from "../models/userModel";
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken"
 
 function generateJwtToken(userId: string, email: string, secretKey: string) {
   const payload = { userId: userId, email: email };
@@ -15,7 +15,6 @@ async function signIn(req: Request, res: Response) {
     const { credential } = req.body;
     const user: IUser = jwtDecode(credential);
     const isExits = await User.findOne({ email: user?.email });
-    console.log(isExits);
     if (isExits) {
       const token = generateJwtToken(
         isExits._id.toString(),
