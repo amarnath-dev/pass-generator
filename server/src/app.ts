@@ -10,11 +10,12 @@ const corsConfig = {
   origin: "https://pass-generator-z55c.onrender.com",
   credentials: true,
 };
+
 dotenv.config();
 
-app.use(cors(corsConfig));
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors(corsConfig));
 
 app.use("/", useRoutes);
 
