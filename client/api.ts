@@ -4,12 +4,9 @@ import axios from "axios";
 const URL = "https://pass-generator-api-x27n.onrender.com";
 
 const url = axios.create({
-  withCredentials: true,
   baseURL: URL,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });
 
 export default url;
