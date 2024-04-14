@@ -21,12 +21,33 @@ async function signIn(req: Request, res: Response) {
         isExits.email,
         process.env.JWT_SECRETE as string
       );
-      res.status(200).send({ status: true, token, userId: isExits._id });
+      return res.status(200).send({ status: true, token, userId: isExits._id });
     } else {
-      res.send({ status: false, message: "User Not Found" });
+      return res.send({ status: false, message: "User Not Found" });
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+async function signUp(req: Request, res: Response) {
+  try {
+    const { credential } = req.body;
+    const user: IUser = jwtDecode(credential);
+    const isExits = await User.findOne({ email: user?.email });
+    if (isExits) {
+      return res.send({ status: false, message: "User Alredy Exists" });
+    }
+    const newUser = new User({
+      email: user.email,
+      password: "",
+      picture: user.picture,
+    });
+    await newUser.save();
+    res.status(201).json({ status: true, message: "Sign up successfull" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: false, message: "Server Error" });
   }
 }
 
@@ -35,10 +56,11 @@ async function signInWithEmailPassword(req: Request, res: Response) {
     const { email, password } = req.body.credential;
     if (!email || !password) {
       res.status(400).json({ status: false, message: "Credentials not found" });
+      return;
     }
     const isExits = await User.findOne({ email: email });
-    if (!isExits) {
-      res.send({ status: false, message: "User Not Found" });
+    if (!isExits || isExits.password === "") {
+      return res.send({ status: false, message: "User Not Found" });
     } else {
       if (isExits.password === password) {
         const token = generateJwtToken(
@@ -65,7 +87,7 @@ async function signUpWithEmailPassword(req: Request, res: Response) {
     }
     const isExits = await User.findOne({ email: email });
     if (isExits) {
-      res.send({ status: false, message: "User Alredy Exists" });
+      return res.send({ status: false, message: "User Alredy Exists" });
     } else {
       const newUser = new User({
         email: email,
@@ -86,4 +108,9 @@ async function signUpWithEmailPassword(req: Request, res: Response) {
   }
 }
 
-export default { signIn, signInWithEmailPassword, signUpWithEmailPassword };
+export default {
+  signIn,
+  signInWithEmailPassword,
+  signUpWithEmailPassword,
+  signUp,
+};

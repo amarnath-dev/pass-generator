@@ -7,6 +7,8 @@ const router: Router = Router();
 
 router.post("/signin", authControl.signIn);
 
+router.post("/signup", authControl.signUp)
+
 router.post("/signInWithEmailPassword", authControl.signInWithEmailPassword);
 
 router.post("/signUpWithEmailPassword", authControl.signUpWithEmailPassword);
