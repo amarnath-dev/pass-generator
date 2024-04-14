@@ -54,16 +54,16 @@ const SignIn = () => {
         theme="light"
       />
       <div className="w-screen h-screen text-one bg-background">
-        <div className="w-full h-full flex justify-center items-center">
-          <div className="w-1/2 h-96 bg-gray-500 rounded-lg">
-            <div className="w-full h-full flex items-center justify-center flex-col px-20">
+        <div className="w-full h-full flex justify-center items-center px-5">
+          <div className="w-full md:w-1/2 h-96 bg-white rounded-lg">
+            <div className="w-full h-full flex items-center justify-center flex-col px-2 md:px-20">
               <div className="w-full text-center">
-                <h1 className="text-xl py-4 font-bold">Sign In</h1>
+                <h1 className="text-2xl py-4 font-bold text-black">Sign In</h1>
               </div>
               <input
                 type="text"
                 name="email"
-                className="w-full py-3 rounded ps-4 text-black text-lg"
+                className="w-full py-3 rounded ps-4 text-black text-lg border border-teal-400"
                 placeholder="Enter your email"
                 value={credential.email}
                 onChange={handleChange}
@@ -71,7 +71,7 @@ const SignIn = () => {
               <input
                 type="password"
                 name="password"
-                className="w-full py-3 my-3 rounded ps-4 text-black text-lg"
+                className="w-full py-3 my-3 rounded ps-4 text-black text-lg border border-teal-400"
                 placeholder="Enter your password"
                 value={credential.password}
                 onChange={handleChange}
@@ -82,13 +82,13 @@ const SignIn = () => {
                 </button>
               </div>
               <div className="w-full py-3 flex justify-center">
-                <GoogleAuth />
+                <GoogleAuth actionType={"signin"} />
               </div>
               <button
-                className="text-blue-500 font-bold text-lg underline"
+                className="text-blue-500 font-bold text-lg"
                 onClick={() => navigate("/signup")}
               >
-                Sign up{" "}
+                <small className="text-black">New User ?</small> Sign up{" "}
               </button>
             </div>
           </div>

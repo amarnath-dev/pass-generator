@@ -4,6 +4,7 @@ import { Credential } from "../pages/SignIn";
 
 export const signIn = async (credential: string) => {
   try {
+    console.log("Sign in data seding");
     const res = await API.post("/signin", { credential });
     return res.data;
   } catch (error) {
@@ -11,7 +12,16 @@ export const signIn = async (credential: string) => {
   }
 };
 
-export const signUp = async (credential: Credential) => {
+export const signUp = async (credential: string) => {
+  try {
+    const res = await API.post("/signup", { credential });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signUpWithEmailPassword = async (credential: Credential) => {
   try {
     const res = await API.post("/signUpWithEmailPassword", { credential });
     console.log(res.data);

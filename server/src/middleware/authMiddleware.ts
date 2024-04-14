@@ -29,7 +29,7 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = jwtDecode(token);
     const exists = await User.findById(user.userId);
     if (!exists) {
-      res
+      return res
         .status(404)
         .json({ status: false, message: "User not Authenticated" });
     }

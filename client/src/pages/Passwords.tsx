@@ -84,7 +84,7 @@ const Passwords = () => {
         currentObj={viewObj ? viewObj : null}
       />
       <div className="w-full h-screen bg-background flex justify-center text-one">
-        <div className="w-2/3 px-3 py-5">
+        <div className="w-full md:w-2/3 px-3 py-5">
           <div className="w-full h-full rounded-md">
             <div>
               <div className="w-full flex justify-between">
@@ -98,7 +98,7 @@ const Passwords = () => {
                   Logout
                 </button>
               </div>
-              <h1 className="text-center text-3xl font-bold py-5">
+              <h1 className="text-center text-2xl md:text-3xl font-bold py-5">
                 Your Passwords 🪄
               </h1>
             </div>
@@ -106,7 +106,7 @@ const Passwords = () => {
               return (
                 <div
                   key={index}
-                  className="w-full px-3 flex border-2 border-teal-500 rounded-md py-1 mt-2"
+                  className="w-full md:px-3 flex border-2 border-teal-500 rounded-md py-1 mt-2"
                 >
                   <div className="flex-1 text-wrap rounded flex items-center">
                     <h1 className="px-2 font-bold">{obj.description}</h1>
