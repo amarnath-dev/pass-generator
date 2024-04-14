@@ -19,8 +19,8 @@ export const GoogleAuth = () => {
   };
   return (
     <>
-      <div className="w-screen h-screen bg-background flex justify-center items-center">
-        <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+      <div>
+        <GoogleLogin onSuccess={handleSuccess} onError={handleError} width={500} />
       </div>
     </>
   );

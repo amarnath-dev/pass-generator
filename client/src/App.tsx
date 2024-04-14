@@ -7,6 +7,7 @@ import IsAuthenticated from "./components/protect/IsAuthenticated";
 const Home = lazy(() => import("../src/pages/Home"));
 const SignIn = lazy(() => import("../src/pages/SignIn"));
 const Passwords = lazy(() => import("../src/pages/Passwords"));
+const SignUp = lazy(() => import("../src/pages/SignUp"));
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route element={<IsAuthenticated />}>
               <Route path="/" element={<Home />} />
               <Route path="/passwords" element={<Passwords />} />

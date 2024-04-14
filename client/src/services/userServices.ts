@@ -1,5 +1,6 @@
 import { Requirements } from "../components/InputModal/InputModal";
 import API from "../../api";
+import { Credential } from "../pages/SignIn";
 
 export const signIn = async (credential: string) => {
   try {
@@ -7,6 +8,25 @@ export const signIn = async (credential: string) => {
     return res.data.token;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const signUp = async (credential: Credential) => {
+  try {
+    const res = await API.post("/signUpWithEmailPassword", { credential });
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signInWithEmailPassword = async (credential: Credential) => {
+  try {
+    const res = await API.post("/signInWithEmailPassword", { credential });
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 

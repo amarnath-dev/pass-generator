@@ -5,6 +5,7 @@ export interface IUser {
   email: string;
   picture: string;
   blocked: boolean;
+  password: string;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema<IUser>(
@@ -15,6 +16,9 @@ const userSchema: Schema<IUser> = new mongoose.Schema<IUser>(
     email: {
       type: String,
       required: true,
+    },
+    password: {
+      type: String,
     },
     picture: {
       type: String,
