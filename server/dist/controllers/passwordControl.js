@@ -17,6 +17,7 @@ const mongodb_1 = require("mongodb");
 function generateOwnPass(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log("Generating th epass");
             const { uppercase, lowercase, numbers, specialCharacters } = req.body;
             const length = parseInt(uppercase) +
                 parseInt(lowercase) +
@@ -90,8 +91,7 @@ function deletePassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
-            const deletePass = yield passwordModel_1.default.findByIdAndDelete(id);
-            console.log("Deleted", deletePass);
+            yield passwordModel_1.default.findByIdAndDelete(id);
             res.status(200).json({ status: true });
         }
         catch (error) {

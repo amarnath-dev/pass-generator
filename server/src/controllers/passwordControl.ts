@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 
 async function generateOwnPass(req: Request, res: Response) {
   try {
+    console.log("Generating th epass")
     const { uppercase, lowercase, numbers, specialCharacters } = req.body;
     const length =
       parseInt(uppercase) +

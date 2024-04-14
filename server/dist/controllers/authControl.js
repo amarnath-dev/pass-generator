@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jwt_decode_1 = require("jwt-decode");
 const userModel_1 = __importDefault(require("../models/userModel"));
-const jwt = require("jsonwebtoken");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function generateJwtToken(userId, email, secretKey) {
     const payload = { userId: userId, email: email };
-    const token = jwt.sign(payload, secretKey, { expiresIn: "1d" });
+    const token = jsonwebtoken_1.default.sign(payload, secretKey, { expiresIn: "1d" });
     return token;
 }
 function signIn(req, res) {
@@ -26,7 +26,6 @@ function signIn(req, res) {
             const { credential } = req.body;
             const user = (0, jwt_decode_1.jwtDecode)(credential);
             const isExits = yield userModel_1.default.findOne({ email: user === null || user === void 0 ? void 0 : user.email });
-            console.log(isExits);
             if (isExits) {
                 const token = generateJwtToken(isExits._id.toString(), isExits.email, process.env.JWT_SECRETE);
                 res.status(200).send({ status: true, token, userId: isExits._id });

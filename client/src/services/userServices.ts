@@ -3,13 +3,7 @@ import API from "../../api";
 
 export const signIn = async (credential: string) => {
   try {
-    const res = await API.post(
-      "/signin",
-      {
-        credential,
-      },
-      { withCredentials: true }
-    );
+    const res = await API.post("/signin", { credential });
     return res.data.token;
   } catch (error) {
     console.error(error);
@@ -18,9 +12,7 @@ export const signIn = async (credential: string) => {
 
 export const generateOwnPass = async (requirements: Requirements) => {
   try {
-    const res = await API.post("/generate", requirements, {
-      withCredentials: true,
-    });
+    const res = await API.post("/generate", requirements);
     return res.data.password;
   } catch (error) {
     console.error("Requirement Send Failed", error);
@@ -29,14 +21,7 @@ export const generateOwnPass = async (requirements: Requirements) => {
 
 export const savePassword = async (password: string, description: string) => {
   try {
-    const res = await API.post(
-      "/save",
-      {
-        password,
-        description,
-      },
-      { withCredentials: true }
-    );
+    const res = await API.post("/save", { password, description });
     return res.status;
   } catch (error) {
     console.log(error);
@@ -45,7 +30,7 @@ export const savePassword = async (password: string, description: string) => {
 
 export const deletePass = async (id: string) => {
   try {
-    const res = await API.delete(`/delete/${id}`, { withCredentials: true });
+    const res = await API.delete(`/delete/${id}`);
     return res.data.status;
   } catch (error) {
     console.log(error);
