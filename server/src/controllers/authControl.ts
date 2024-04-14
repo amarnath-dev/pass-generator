@@ -15,7 +15,7 @@ async function signIn(req: Request, res: Response) {
     const { credential } = req.body;
     const user: IUser = jwtDecode(credential);
     const isExits = await User.findOne({ email: user?.email });
-    if (isExits) {
+    if (isExits && isExits.password === "") {
       const token = generateJwtToken(
         isExits._id.toString(),
         isExits.email,
@@ -23,14 +23,7 @@ async function signIn(req: Request, res: Response) {
       );
       res.status(200).send({ status: true, token, userId: isExits._id });
     } else {
-      const newUser = new User({
-        name: user?.name,
-        email: user?.email,
-        password: "",
-        picture: user?.picture,
-      });
-      await newUser.save();
-      res.status(201).send({ status: true });
+      res.send({ status: false, message: "User Not Found" });
     }
   } catch (error) {
     console.log(error);
@@ -45,7 +38,7 @@ async function signInWithEmailPassword(req: Request, res: Response) {
     }
     const isExits = await User.findOne({ email: email });
     if (!isExits) {
-      res.status(404).json({ status: false, message: "User Not Found" });
+      res.send({ status: false, message: "User Not Found" });
     } else {
       if (isExits.password === password) {
         const token = generateJwtToken(
@@ -72,7 +65,7 @@ async function signUpWithEmailPassword(req: Request, res: Response) {
     }
     const isExits = await User.findOne({ email: email });
     if (isExits) {
-      res.status(400).json({ status: false, message: "User Alredy Exists" });
+      res.send({ status: false, message: "User Alredy Exists" });
     } else {
       const newUser = new User({
         email: email,

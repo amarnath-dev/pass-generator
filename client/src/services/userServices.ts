@@ -5,7 +5,7 @@ import { Credential } from "../pages/SignIn";
 export const signIn = async (credential: string) => {
   try {
     const res = await API.post("/signin", { credential });
-    return res.data.token;
+    return res.data;
   } catch (error) {
     console.error(error);
   }

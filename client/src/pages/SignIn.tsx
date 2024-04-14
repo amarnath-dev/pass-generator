@@ -3,6 +3,8 @@ import GoogleAuth from "../components/GoogleAuth/GoogleAuth";
 import { signInWithEmailPassword } from "../services/userServices";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export interface Credential {
   email: string;
@@ -27,15 +29,30 @@ const SignIn = () => {
   const handleSubmit = async () => {
     if (credential) {
       const res = await signInWithEmailPassword(credential);
-      if (res) {
+      if (res.status === true) {
         Cookies.set("token", res.token);
         navigate("/");
+      }
+      if (res.status === false) {
+        toast.error(res.message);
       }
     }
   };
 
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="w-screen h-screen text-one bg-background">
         <div className="w-full h-full flex justify-center items-center">
           <div className="w-1/2 h-96 bg-gray-500 rounded-lg">
@@ -67,6 +84,12 @@ const SignIn = () => {
               <div className="w-full py-3 flex justify-center">
                 <GoogleAuth />
               </div>
+              <button
+                className="text-blue-500 font-bold text-lg underline"
+                onClick={() => navigate("/signup")}
+              >
+                Sign up{" "}
+              </button>
             </div>
           </div>
         </div>
