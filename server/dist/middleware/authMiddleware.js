@@ -15,12 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jwt_decode_1 = require("jwt-decode");
 const userModel_1 = __importDefault(require("../models/userModel"));
 const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
-        const token = (_a = req.cookies) === null || _a === void 0 ? void 0 : _a.token;
-        if (!token) {
-            res.status(401).json({ status: false, message: "User Unauthorized" });
+        console.log("Inside verify User");
+        const authorizationHeader = req.headers.Authorization || req.headers.authorization;
+        if (!authorizationHeader || typeof authorizationHeader !== "string") {
+            return res
+                .status(401)
+                .json({ status: false, message: "User Unauthorized" });
         }
+        const token = authorizationHeader.replace("Bearer ", "");
+        console.log("This is token -> ", token);
         const user = (0, jwt_decode_1.jwtDecode)(token);
         const exists = yield userModel_1.default.findById(user.userId);
         if (!exists) {
@@ -33,7 +37,7 @@ const verifyUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.log(error);
-        next(Error("Error occured"));
+        next(new Error("Error occured"));
     }
 });
 exports.default = verifyUser;
