@@ -19,14 +19,13 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authorizationHeader =
       req.headers.Authorization || req.headers.authorization;
+    console.log("Header", authorizationHeader);
     if (!authorizationHeader || typeof authorizationHeader !== "string") {
       return res
         .status(401)
         .json({ status: false, message: "User Unauthorized" });
     }
     const token = authorizationHeader.replace("Bearer ", "");
-    console.log("This is token -> ", token);
-
     const user: User = jwtDecode(token);
     const exists = await User.findById(user.userId);
     if (!exists) {

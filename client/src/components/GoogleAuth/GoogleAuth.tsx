@@ -1,8 +1,9 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../../services/userServices";
-import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const GoogleAuth = () => {
   const navigate = useNavigate();
@@ -10,17 +11,37 @@ export const GoogleAuth = () => {
   const handleSuccess = async (data: CredentialResponse) => {
     if (data.credential) {
       const response = await signIn(data.credential);
-      Cookies.set("token", response);
-      navigate("/");
+      if (response.status === true) {
+        Cookies.set("token", response.token);
+        navigate("/");
+      } else {
+        toast.error(response.message);
+      }
     }
   };
   const handleError = () => {
-    toast.error("Something wen wrong!");
+    toast.error("Something went wrong!");
   };
   return (
     <>
-      <div className="w-screen h-screen bg-background flex justify-center items-center">
-        <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <div>
+        <GoogleLogin
+          onSuccess={handleSuccess}
+          onError={handleError}
+          width={500}
+        />
       </div>
     </>
   );

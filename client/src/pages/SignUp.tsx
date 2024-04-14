@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import GoogleAuth from "../components/GoogleAuth/GoogleAuth";
-import { signInWithEmailPassword } from "../services/userServices";
-import Cookies from "js-cookie";
+import { signUp } from "../services/userServices";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,12 +11,13 @@ export interface Credential {
   password: string;
 }
 
-const SignIn = () => {
+const SignUp = () => {
+  const navigate = useNavigate();
+
   const [credential, setCredential] = useState<Credential>({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,7 +29,7 @@ const SignIn = () => {
 
   const handleSubmit = async () => {
     if (credential) {
-      const res = await signInWithEmailPassword(credential);
+      const res = await signUp(credential);
       if (res.status === true) {
         Cookies.set("token", res.token);
         navigate("/");
@@ -58,7 +59,7 @@ const SignIn = () => {
           <div className="w-1/2 h-96 bg-gray-500 rounded-lg">
             <div className="w-full h-full flex items-center justify-center flex-col px-20">
               <div className="w-full text-center">
-                <h1 className="text-xl py-4 font-bold">Sign In</h1>
+                <h1 className="text-xl py-4 font-bold">Sign Up</h1>
               </div>
               <input
                 type="text"
@@ -78,7 +79,7 @@ const SignIn = () => {
               />
               <div className="w-full text-center bg-teal-500 hover:bg-teal-600 rounded cursor-pointer">
                 <button className="py-3 font-bold" onClick={handleSubmit}>
-                  Sign In
+                  Sign Up
                 </button>
               </div>
               <div className="w-full py-3 flex justify-center">
@@ -86,9 +87,9 @@ const SignIn = () => {
               </div>
               <button
                 className="text-blue-500 font-bold text-lg underline"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/signin")}
               >
-                Sign up{" "}
+                Sign In
               </button>
             </div>
           </div>
@@ -98,4 +99,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
