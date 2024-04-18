@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import React, { ChangeEvent, SetStateAction, useState } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { savePassword } from "../../services/userServices";
@@ -10,19 +10,37 @@ interface SaveModalProps {
   password: string;
 }
 
+function isEmpty(str: string) {
+  if (str.trim().length === 0) {
+    return true;
+  } else {
+    false;
+  }
+}
+
 const SaveModal: React.FC<SaveModalProps> = ({ open, setOpen, password }) => {
   const [description, setDescription] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
 
   const closeModal = () => {
     setOpen(false);
   };
 
   const handleClick = async () => {
+    if (!description || isEmpty(description)) {
+      setError(true);
+      return;
+    }
     const response = await savePassword(password, description);
     if (response) {
       closeModal();
       toast.success("Password Saved Successfully");
     }
+  };
+
+  const handleDescription = (e: ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+    setError(false);
   };
 
   return (
@@ -42,8 +60,13 @@ const SaveModal: React.FC<SaveModalProps> = ({ open, setOpen, password }) => {
                 className="w-full border border-teal-500 rounded-md py-2 ps-3 mt-3"
                 required
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={handleDescription}
               />
+              {error && (
+                <>
+                  <h1 className="text-red-500">Please provide a name</h1>
+                </>
+              )}
             </div>
           </div>
           <div className="flex justify-around px-2 py-6">

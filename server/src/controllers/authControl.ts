@@ -21,9 +21,9 @@ async function signIn(req: Request, res: Response) {
         isExits.email,
         process.env.JWT_SECRETE as string
       );
-      return res.status(200).send({ status: true, token, userId: isExits._id });
+      res.status(200).send({ status: true, token, userId: isExits._id });
     } else {
-      return res.send({ status: false, message: "User Not Found" });
+      res.send({ status: false, message: "User Not Found" });
     }
   } catch (error) {
     console.log(error);
@@ -36,7 +36,7 @@ async function signUp(req: Request, res: Response) {
     const user: IUser = jwtDecode(credential);
     const isExits = await User.findOne({ email: user?.email });
     if (isExits) {
-      return res.send({ status: false, message: "User Alredy Exists" });
+      res.send({ status: false, message: "User Alredy Exists" });
     }
     const newUser = new User({
       email: user.email,
@@ -60,7 +60,7 @@ async function signInWithEmailPassword(req: Request, res: Response) {
     }
     const isExits = await User.findOne({ email: email });
     if (!isExits || isExits.password === "") {
-      return res.send({ status: false, message: "User Not Found" });
+      res.send({ status: false, message: "User Not Found" });
     } else {
       if (isExits.password === password) {
         const token = generateJwtToken(
@@ -87,7 +87,7 @@ async function signUpWithEmailPassword(req: Request, res: Response) {
     }
     const isExits = await User.findOne({ email: email });
     if (isExits) {
-      return res.send({ status: false, message: "User Alredy Exists" });
+      res.send({ status: false, message: "User Alredy Exists" });
     } else {
       const newUser = new User({
         email: email,
