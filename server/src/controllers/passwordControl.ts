@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import Password from "../models/passwordModel";
 import { ObjectId } from "mongodb";
+import CryptoJS from "crypto-js";
 
 async function generateOwnPass(req: Request, res: Response) {
   try {
-    console.log("Generating th epass")
     const { uppercase, lowercase, numbers, specialCharacters } = req.body;
     const length =
       parseInt(uppercase) +
@@ -58,9 +58,13 @@ async function savePassword(req: Request, res: Response) {
   try {
     const { password, description } = req.body;
     const user = req.user;
+    const hashedPass = CryptoJS.AES.encrypt(
+      password,
+      process.env.CRYPTO_SECRETE || "secretPassword"
+    ).toString();
     const newPass = new Password({
       userID: user?.userId,
-      password,
+      password: hashedPass,
       description,
     });
     await newPass.save();
@@ -77,6 +81,7 @@ async function getPasswords(req: Request, res: Response) {
     const passwords = await Password.find({
       userID: new ObjectId(user?.userId),
     });
+    //CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8) -> Decrpt code
     res.status(200).json({ status: true, passwords });
   } catch (error) {
     console.log(error);
