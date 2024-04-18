@@ -81,7 +81,7 @@ async function getPasswords(req: Request, res: Response) {
     const passwords = await Password.find({
       userID: new ObjectId(user?.userId),
     });
-    //CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8) -> Decrpt code
+    //CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8) -> Decrpt code here
     res.status(200).json({ status: true, passwords });
   } catch (error) {
     console.log(error);
