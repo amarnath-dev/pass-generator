@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// const URL = "https://pass-generator-api-x27n.onrender.com";
-const URL = "http://localhost:8000";
+const URL = "https://pass-generator-api-x27n.onrender.com";
+// const URL = "http://localhost:8000";
 
 const token = Cookies.get("token");
 
