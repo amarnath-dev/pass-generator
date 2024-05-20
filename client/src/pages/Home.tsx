@@ -3,13 +3,7 @@ import InputModal from "../components/InputModal/InputModal";
 import { useNavigate } from "react-router-dom";
 import { generateOwnPass } from "../services/userServices";
 import { ResultModal } from "../components/ResultModal/ResultModal";
-
-interface Requirements {
-  uppercase: string;
-  lowercase: string;
-  numbers: string;
-  specialCharacters: string;
-}
+import { Requirements } from "../interfaces/user.interface";
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -37,7 +31,7 @@ const Home = () => {
         password={password}
       />
       <InputModal open={open} setOpen={setOpen} />
-      <div className="w-screen h-full md:h-screen bg-background text-one">
+      <div className="w-screen h-full md:h-full bg-background text-one">
         <div className="py-10 w-full flex justify-center flex-col px-10">
           <h1 className="text-5xl text-center font-semibold">
             Password made simple

@@ -1,10 +1,9 @@
 import { Requirements } from "../components/InputModal/InputModal";
+import { Credential } from "../interfaces/user.interface";
 import API from "../../api";
-import { Credential } from "../pages/SignIn";
 
 export const signIn = async (credential: string) => {
   try {
-    console.log("Sign in data seding");
     const res = await API.post("/signin", { credential });
     return res.data;
   } catch (error) {
@@ -24,7 +23,6 @@ export const signUp = async (credential: string) => {
 export const signUpWithEmailPassword = async (credential: Credential) => {
   try {
     const res = await API.post("/signUpWithEmailPassword", { credential });
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);
