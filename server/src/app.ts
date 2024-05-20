@@ -8,7 +8,7 @@ const app = express();
 dotenv.config();
 
 const corsConfig = {
-  origin: "https://pass-generator-api-x27n.onrender.com",
+  origin: "https://pass-generator-z55c.onrender.com",
   // origin: "http://localhost:5173",
   credentials: true,
 };
