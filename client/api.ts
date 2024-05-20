@@ -1,8 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// const URL = "http://localhost:8000";
-const URL = "https://pass-generator-api-x27n.onrender.com";
+const URL = import.meta.env.VITE_API;
 const token = Cookies.get("token");
 
 const headers = {

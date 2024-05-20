@@ -12,4 +12,5 @@ async function connect() {
     console.error("Connection Error", error);
   }
 }
+
 connect();

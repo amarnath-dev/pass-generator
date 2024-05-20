@@ -7,20 +7,13 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-
-interface Passwords {
-  _id: string;
-  password: string;
-  userID: string;
-  description: string;
-  createdAt: string;
-}
+import { PasswordsTypes } from "../interfaces/user.interface";
 
 const Passwords = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [passwords, setPassword] = useState<Passwords[]>([]);
+  const [passwords, setPassword] = useState<PasswordsTypes[]>([]);
 
-  const [viewObj, setViewObj] = useState<Passwords>();
+  const [viewObj, setViewObj] = useState<PasswordsTypes>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,7 +51,7 @@ const Passwords = () => {
     });
   };
 
-  const handleView = (obj: Passwords) => {
+  const handleView = (obj: PasswordsTypes) => {
     setOpenModal(true);
     setViewObj(obj);
   };
@@ -102,7 +95,7 @@ const Passwords = () => {
                 Your Passwords 🪄
               </h1>
             </div>
-            {passwords.map((obj: Passwords, index: number) => {
+            {passwords.map((obj: PasswordsTypes, index: number) => {
               return (
                 <div
                   key={index}

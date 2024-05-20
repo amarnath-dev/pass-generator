@@ -5,16 +5,16 @@ import userRoutes from "./routes/userRoutes";
 import cookieParser from "cookie-parser";
 
 const app = express();
+dotenv.config();
+
 const corsConfig = {
-  // origin: "http://localhost:5173",
-  origin: "https://pass-generator-z55c.onrender.com",
+  origin: process.env.CORS_ORIGIN,
   credentials: true,
 };
 
-dotenv.config();
-
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsConfig));
 
 app.use("/", userRoutes);

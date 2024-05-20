@@ -5,11 +5,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-export interface Credential {
-  email: string;
-  password: string;
-}
+import { Credential } from "../interfaces/user.interface";
 
 const SignIn = () => {
   const [credential, setCredential] = useState<Credential>({
