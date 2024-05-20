@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputModal from "../components/InputModal/InputModal";
 import { useNavigate } from "react-router-dom";
 import { generateOwnPass } from "../services/userServices";
@@ -23,6 +23,14 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const hasReloaded = sessionStorage.getItem("hasReloaded");
+    if (!hasReloaded) {
+      sessionStorage.setItem("hasReloaded", "true");
+      window.location.reload();
+    }
+  }, []);
   return (
     <>
       <ResultModal
